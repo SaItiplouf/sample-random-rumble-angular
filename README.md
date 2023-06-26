@@ -17,7 +17,6 @@ Premièrement nous allons créer les différents Models et States de Ngrx :
   ```ts 
     export interface IPlayer { 
       id: number; 
-      avatar: string; 
       name: string; 
       pv: number; 
       pvMax: number; 
@@ -25,14 +24,7 @@ Premièrement nous allons créer les différents Models et States de Ngrx :
       manaMax: number; 
     } 
 
-    // Le state initial contiendra nos 4 joueurs
-    export const initialPlayers: IPlayer[] = [
-      // Dans ce tableau créons plusieurs instances de la classe player
-      new Player(1, 'John' 100, 100, 30, 30),
-      new Player(2, 'Jack' 100, 100, 30, 30),
-      new Player(3, 'Jessy' 100, 100, 30, 30),
-      new Player(4, 'Jenny' 100, 100, 30, 30)
-    ]; 
+    
     export class Player implements IPlayer { 
       id: number; 
       name: string; 
@@ -50,6 +42,15 @@ Premièrement nous allons créer les différents Models et States de Ngrx :
         this.manaMax = manaMax; 
       } 
     } 
+
+    // Le state initial contiendra nos 4 joueurs
+    export const initialPlayers: IPlayer[] = [
+      // Dans ce tableau créons plusieurs instances de la classe player
+      new Player(1, 'John' 100, 100, 30, 30),
+      new Player(2, 'Jack' 100, 100, 30, 30),
+      new Player(3, 'Jessy' 100, 100, 30, 30),
+      new Player(4, 'Jenny' 100, 100, 30, 30)
+    ]; 
   ```
   - Créer ce fichier dans app/models/monster.model.ts
   ```ts 
