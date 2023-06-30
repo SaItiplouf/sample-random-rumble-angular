@@ -1,14 +1,20 @@
-<div class="card center" *ngIf="player">
-  <div class="card-body text-center">
-      <h5 class="card-title">{{ player.name }}</h5>
-      <app-progress-bar [pv]="player.pv" [pvMax]="player.pvMax" bgType="bg-success" faType="fa-heart" barName=": pv"></app-progress-bar>
-      <app-progress-bar [pv]="player.mana" [pvMax]="player.manaMax" bgType="bg-primary" faType="fa-bolt" barName=": mana"></app-progress-bar>
-      <span class="badge badge-danger ml-2 " id="degatSpanJ1"></span>
-      <div class="row">
-        <app-button-capacity class="my-1 w-100" [player]="player"></app-button-capacity>
-        <app-button-capacity class="my-1 w-100" [player]="player"></app-button-capacity>
-        <app-button-capacity class="my-1 w-100" [player]="player"></app-button-capacity>
-        <app-button-capacity class="my-1 w-100" [player]="player"></app-button-capacity>
+
+<div class="card mx-auto bg-gray-800 hover:bg-gray-900" *ngIf="player">
+  <div class="card-body text-center pt-4">
+    <h5 class="card-title text-2xl text-white">{{ player.name }}</h5>
+    <img class="mx-auto my-4 w-32 h-auto" src="https://lh3.googleusercontent.com/vNuyw5qQk27q8cwyY-VbqV1G-N7tFqESi3KLrdFV8yZXk6s2HY3zTa7FLJkeJ5uRhC1Aujqtm5CsUUc0-19m=s400" alt="Character Image">
+    <div class="flex items-center justify-center space-x-4 mb-4">
+      <div class="w-24 h-4 bg-red-500">
+        <div class="h-full bg-green-500" [style.width.%]="(player.pv / player.pvMax) * 100"></div>
       </div>
+      <div class="w-24 h-4 bg-blue-500">
+        <div class="h-full bg-blue-300" [style.width.%]="(player.mana / player.manaMax) * 100"></div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <app-button-capacity class="my-1 bg-red-500 hover:bg-red-600" [player]="player"></app-button-capacity>
+      <app-button-capacity class="my-1 bg-red-500 hover:bg-red-600" [player]="player"></app-button-capacity>
+    </div>
   </div>
 </div>
+

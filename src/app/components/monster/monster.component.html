@@ -1,17 +1,15 @@
-<section>
-  <div class="container">
-    <div class="row">
-      <div class="card-monster col-sm-12">
-        <div id="monsterCard">
-          <div class="text-center">
-            <div class="row">
-              <div class="col">
-                <span class="badge badge-danger ml-2" id="degatSpanMonster"></span>
-                <img class="img-fluid" src="http://res.publicdomainfiles.com/pdf_view/67/13925387417373.png" width="150px" alt="monster" />
-              </div>
+<section class="py-4">
+  <div class="container mx-auto">
+    <h1 class="text-6xl text-center font-bold text-white">{{ monster?.name }}</h1> <!-- Ajouter cette ligne -->
+    <div class="flex flex-row justify-center">
+      <div class="card-monster">
+        <div id="monsterCard" *ngIf="monster" class="text-center">
+          <div class="flex flex-row justify-center">
+            <div class="flex flex-col items-center">
+              <img class="w-96 h-auto mx-auto" src="../../../assets/wither.png" alt="monster" />
             </div>
           </div>
-          <app-progress-bar [pv]="800" [pvMax]="800" bgType="bg-primary" faType="fa-heart" barName=": pv"></app-progress-bar>
+          <app-progress-bar [pv]="monster.pv" [pvMax]="monster.pvMax" bgType="bg-primary" faType="fa-heart" barName=": pv"></app-progress-bar>
         </div>
       </div>
     </div>

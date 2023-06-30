@@ -104,7 +104,7 @@ Nous allons ensuite créer le reducer de Ngrx pour créer l’état initial de l
   ```ts
   import { StoreModule } from '@ngrx/store'; 
   import { EffectsModule } from '@ngrx/effects'; 
-  import { gameReducer } from './reducers/game.reducer';
+  import { gameReducer } from './reducers/reducers';
     
   @NgModule({ 
     ... 
@@ -132,7 +132,7 @@ Nous allons utiliser un sélecteur pour souscrire au state qui nous intéresse.
   import { Component, OnInit } from '@angular/core'; 
   import { Store } from '@ngrx/store';  
   import { IMonster } from 'src/app/models/monster.model'; 
-  import { GameState } from 'src/app/reducers/game.reducer'; 
+  import { GameState } from 'src/app/reducers/reducers'; 
     
   @Component({ 
     selector: 'app-monster', 
@@ -217,7 +217,7 @@ Nous allons utiliser un sélecteur pour souscrire au state qui nous intéresse.
 
   Nous allons maintenant intégrer notre action dans le reducer en y intégrant une fonction a appeler quand l'action sera lancé :
   ```ts 
-  // Modification fu fichier app/reducers/game.reducer.ts
+  // Modification fu fichier app/reducers/reducers.ts
   ...
   import { hitMonster } from './../actions/player.action';
 

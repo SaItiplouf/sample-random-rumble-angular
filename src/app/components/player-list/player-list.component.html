@@ -1,3 +1,4 @@
-  <div class="card-deck row w-100">
-    <app-player-card class="col" *ngFor="let player of players" [player]="player"></app-player-card>
-  </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  <app-player-card class="w-full" *ngFor="let player of players" [player]="player"></app-player-card>
+</div>
+

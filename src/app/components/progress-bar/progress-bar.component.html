@@ -1,7 +1,9 @@
-<div class="progress">
-  <div *ngIf="pv != undefined && pvMax != undefined" class="progress-bar" [ngClass]="bgType" role="progressbar" [style.width.%]="(pv / pvMax) * 100"></div>
-  <div class="progress-info">
-    <i class="fa fa-heart text-danger"></i>
-    {{ pv }}{{ barName }}
+<div class="relative h-8 bg-gray-700 rounded-full overflow-hidden mt-4">
+  <div *ngIf="pv != undefined && pvMax != undefined" class="absolute top-0 left-0 h-full bg-red-600" [style.width.%]="(pv / pvMax) * 100"></div>
+  <div class="progress-info flex items-center justify-center h-full px-4">
+    <div class="flex items-center justify-center">
+      <i class="fa-solid fa-heart text-white"></i>
+      <span class="ml-2 text-white">{{ pv }}</span>
+    </div>
   </div>
 </div>
