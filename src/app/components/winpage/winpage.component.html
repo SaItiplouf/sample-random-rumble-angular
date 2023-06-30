@@ -1,0 +1,55 @@
+<div class="flex items-center justify-center h-screen bg-gradient-to-bl from-blue-900 to-blue-950">
+<div class="flex flex-col bg-gray-200 border-black border-2 rounded-lg p-8">
+    <div class="flex flex-col space-y-4 items-center">
+      <h1 class="text-6xl text-black font-bold mb-8 text-center">Menu</h1>
+      <p class="text-black text-2xl">Bienvenue dans le jeu !</p>
+    </div>
+    <div class="flex justify-center space-x-4 mt-4">
+      <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-32" (click)="onJouerClick()">
+        Jouer
+      </button>
+      <button class="bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full w-32">
+        Statistiques
+      </button>
+    </div>
+  </div>
+  <div class="flex flex-col justify-end mt-8 md:mt-0 md:pl-8">
+    <table class="table-auto bg-gray-200 rounded-lg shadow-md">
+      <thead>
+      <tr>
+        <th class="text-left bg-blue-600 text-white py-2 px-4">Date</th>
+        <th class="text-right bg-blue-600 text-white py-2 px-4">Événement</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="py-2 px-4">2023-06-01</td>
+        <td class="text-right py-2 px-4">Nouvelle partie</td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4">2023-06-02</td>
+        <td class="text-right py-2 px-4">Score élevé atteint</td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4">2023-06-03</td>
+        <td class="text-right py-2 px-4">Niveau terminé</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table-auto bg-gray-200 rounded-lg shadow-md mt-4">
+      <thead>
+      <tr class="text-left bg-blue-600 text-white ">
+        <th class="py-2 px-4">Joueurs</th>
+        <th class="py-2 px-4"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let player of players">
+        <td class="py-2 px-4">{{ player.date }}</td>
+        <td class="text-right py-2 px-4">{{ player.event }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
