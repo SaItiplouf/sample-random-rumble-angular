@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { GameState } from "../../reducers/game.reducer";
-import { hitMonster } from "../../actions/player.action";
+import {hitMonster, healPlayer, updatePlayerScore} from "../../actions/player.action";
 import { hitPlayer } from "../../actions/monster.action";
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-function generateRandomDamage(minDamage: number, maxDamage: number): number {
-  return Math.floor(Math.random() * (maxDamage - minDamage + 1)) + minDamage;
+function generateRandomHeal(minHeal: number, maxHeal: number): number {
+  return Math.floor(Math.random() * (maxHeal - minHeal + 1)) + minHeal;
 }
 
 @Component({
@@ -14,28 +14,37 @@ function generateRandomDamage(minDamage: number, maxDamage: number): number {
   styleUrls: ['./button-capacity.component.scss']
 })
 export class ButtonCapacityComponent {
+  @Output() showNewButtonEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() player?: any;
+  @Input() actionType?: string;
+
+
+
 
   constructor(private store: Store<{ game: GameState }>) {}
-
-  onClick() {
-    const playerMinDamage = 5;
-    const playerMaxDamage = 15;
-    const monsterMinDamage = 10;
-    const monsterMaxDamage = 30;
+  onClickDamage() {
+    if (this.player.pv <= 0) {
+      return;
+    }
 
     if (this.player) {
-      const playerId = this.player.id;
-
-      const playerDamage = generateRandomDamage(playerMinDamage, playerMaxDamage);
-      this.store.dispatch(hitMonster({ damage: playerDamage, playerId }));
+      this.showNewButtonEvent.emit(true);
 
       setTimeout(() => {
-        if (Math.random() <= 0.25) { // Probabilité de 25%
-          const monsterDamage = generateRandomDamage(monsterMinDamage, monsterMaxDamage);
-          this.store.dispatch(hitPlayer({ player: this.player, damage: monsterDamage }));
-        }
-      }, 500);
+        this.showNewButtonEvent.emit(false);
+      }, 10000);
+    }
+  }
+
+  onClickHeal() {
+    if (this.player && this.player.score >= 1) {
+      if (this.player.pv>= 100) {
+        return;
+      }
+      const updatedScore = this.player.score - 1;
+      const playerHeal = generateRandomHeal(10, 20);
+      this.store.dispatch(healPlayer({ player: this.player, heal: playerHeal }));
+      this.store.dispatch(updatePlayerScore({ playerId: this.player.id, score: updatedScore }));
     }
   }
 }

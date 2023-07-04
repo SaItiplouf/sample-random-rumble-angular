@@ -4,14 +4,16 @@
     <div class="flex flex-row justify-center">
       <div class="card-monster">
         <div id="monsterCard" *ngIf="monster" class="text-center">
+          <div class="boss">
           <div class="flex flex-row justify-center">
-            <div class="flex flex-col items-center">
-              <img class="w-96 h-auto mx-auto" src="../../../assets/wither.png" alt="monster" />
+            <div class="flex flex-col items-center" id="boss">
+              <img [class.on-fire]="monster?.isMonsterOnFire" [class.on-damage]="monster?.isMonsterOnDamage" [ngClass]="{ 'drop-shadow-custom': !monster?.isMonsterOnFire }" class="w-96 h-auto mx-auto" src="../../../assets/wither.png" alt="monster" />
             </div>
           </div>
           <app-progress-bar [pv]="monster.pv" [pvMax]="monster.pvMax" bgType="bg-primary" faType="fa-heart" barName=": pv"></app-progress-bar>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>

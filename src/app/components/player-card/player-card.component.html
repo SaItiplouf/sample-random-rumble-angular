@@ -1,19 +1,68 @@
-
-<div class="card mx-auto bg-gray-800 hover:bg-gray-900" *ngIf="player">
-  <div class="card-body text-center pt-4">
-    <h5 class="card-title text-2xl text-white">{{ player.name }}</h5>
-    <img class="mx-auto my-4 w-32 h-auto" src="https://lh3.googleusercontent.com/vNuyw5qQk27q8cwyY-VbqV1G-N7tFqESi3KLrdFV8yZXk6s2HY3zTa7FLJkeJ5uRhC1Aujqtm5CsUUc0-19m=s400" alt="Character Image">
-    <div class="flex items-center justify-center space-x-4 mb-4">
-      <div class="w-24 h-4 bg-red-500">
-        <div class="h-full bg-green-500" [style.width.%]="(player.pv / player.pvMax) * 100"></div>
-      </div>
-      <div class="w-24 h-4 bg-blue-500">
-        <div class="h-full bg-blue-300" [style.width.%]="(player.mana / player.manaMax) * 100"></div>
+<div class="flex items-center justify-center">
+  <div class="w-full max-w-xl bg-gray-800 rounded-lg shadow-md overflow-hidden">
+    <div class="flex items-center justify-between px-4 py-6 bg-gray-900">
+      <h5 class="text-2xl text-white">{{ player.name }}</h5>
+      <div class="flex space-x-4">
+        <div *ngIf="player.classe === 'Magicien'">
+          <i class="fas fa-hat-wizard text-yellow-500 text-1xl"></i> <!-- Icône de magicien avec couleur jaune et taille 2xl -->
+        </div>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-      <app-button-capacity class="my-1 bg-red-500 hover:bg-red-600" [player]="player"></app-button-capacity>
-      <app-button-capacity class="my-1 bg-red-500 hover:bg-red-600" [player]="player"></app-button-capacity>
+
+
+    <div class="p-6">
+      <div class="flex items-center justify-center mb-4">
+        <img class="w-32 h-32 object-scale-down" *ngIf="!player.isDead" [src]="player.image ? player.image : 'https://lh3.googleusercontent.com/vNuyw5qQk27q8cwyY-VbqV1G-N7tFqESi3KLrdFV8yZXk6s2HY3zTa7FLJkeJ5uRhC1Aujqtm5CsUUc0-19m=s400'" alt="Image du personnage">
+        <img class="w-32 h-32 object-scale-down" *ngIf="player.isDead" src="https://www.pngplay.com/wp-content/uploads/1/RIP-Gravestone-Transparent-Free-PNG.png" alt="Image du personnage">
+      </div>
+
+
+      <div class="mb-4">
+        <div class="text-gray-300">Vie: {{ player.pv }}</div>
+        <div [ngClass]="{'bg-red-500': (player.pv !== undefined && player.pv !== null && player.pv > 0), 'bg-gray-500': (player.pv !== undefined && player.pv !== null && player.pv <= 0)}" class="h-2 rounded-full">
+          <div class="h-full bg-green-500" [style.width.%]="(player.pv !== undefined && player.pv !== null && player.pv >= 0) ? (player.pv / 100) * 100 : 0"></div>
+        </div>
+      </div>
+
+
+      <div class="mb-4">
+        <div class="text-gray-300">Score: {{ player.score ?? 0 }}</div>
+        <div class="h-2 bg-blue-300 rounded-full" style="max-width: 100%">
+          <div class="h-full bg-blue-500" [style.width.%]="(player.score !== undefined && player.score !== null && player.score >= 0) ? (player.score / 3) * 100 : 0"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <app-button-capacity [player]="player" actionType="hit" (showNewButtonEvent)="onShowNewButtonEvent($event)"
+                             [ngClass]="{'bg-red-600': (player.pv !== undefined && player.pv !== null && player.pv > 0), 'bg-gray-500': (player.pv !== undefined && player.pv !== null && player.pv <= 0)}"
+                             class="hover:bg-red-500"></app-button-capacity>
+
+        <app-button-capacity [player]="player" actionType="heal"
+                             [ngClass]="{'bg-green-500': (player.score !== undefined && player.score !== null && player.score !== 0), 'bg-gray-500': (player.score === 0 || player.score === null || player.score === undefined)}"
+                             class="hover:bg-green-600"></app-button-capacity>
+      </div>
+
+      <div class="flex justify-center mt-4">
+        <button [disabled]="isClicking"
+                *ngIf="showNewButton"
+                [ngClass]="{'bg-gray-300': isClicking, 'bg-amber-400 hover:bg-amber-500': !isClicking}"
+                class="text-white font-bold py-4 px-8 rounded-full text-xl"
+                (click)="onButtonClick()">FRACASSE LE
+        </button>
+
+      </div>
+
+
+
+      <button *ngIf="player?.classe === 'Magicien' && player.score >= 3"
+              class="w-full bg-amber-500 hover:bg-yellow-500 text-white font-bold py-2 px-4"
+              (click)="onClickEnflammer()">Enflammer le boss</button>
+
+
+
+
+      <audio id="fireSound" src="../../../assets/fire.mp3"></audio>
+
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<button type="button" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full w-full" (click)="onClick()">
-  hit
-  <i class="fa-solid fa-bomb"></i>10
-</button>
+
+<button *ngIf="actionType === 'hit'" class="my-1 text-white font-bold py-2 px-4 rounded" (click)="onClickDamage()">Hit</button>
+<button *ngIf="actionType === 'heal'" class="my-1 text-white font-bold py-2 px-4 rounded" (click)="onClickHeal()">Heal</button>
+

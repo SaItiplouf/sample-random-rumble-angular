@@ -17,6 +17,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import { ButtonCapacityComponent } from './components/button-capacity/button-capacity.component';
 import { WinpageComponent } from './components/winpage/winpage.component';
 import {GameComponent} from "./components/game/game.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {GameComponent} from "./components/game/game.component";
     AppRoutingModule,
     StoreModule.forRoot({ game: gameReducer }),
     EffectsModule.forRoot([]),
+    HttpClientModule
   ],
   providers: [GameService],
   bootstrap: [AppComponent]

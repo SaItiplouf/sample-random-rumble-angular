@@ -1,0 +1,53 @@
+.on-fire {
+  animation: flame-effect 1s infinite; /* Animation de dégâts */
+}
+
+@keyframes flame-effect {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(2px 4px 6px black);
+  }
+  48% {
+    filter: sepia(1) saturate(5) hue-rotate(0deg) drop-shadow(2px 4px 6px black) ;
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(2px 4px 6px black) sepia(1) saturate(5) hue-rotate(330deg); /* Blanc */
+  }
+  52% {
+    filter: drop-shadow(2px 4px 6px black) sepia(1) saturate(5) hue-rotate(0deg); /* Rouge */
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(2px 4px 6px black);
+  }
+}
+
+.on-damage {
+  animation: damage-effect 1s; /* Animation de dégâts */
+}
+@keyframes damage-effect {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(2px 4px 6px black);
+  }
+  30% {
+    filter: saturate(5) hue-rotate(0deg) drop-shadow(2px 4px 6px black) ;
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(2px 4px 6px black) sepia(1) hue-rotate(298deg) saturate(5);
+  }
+  70% {
+    filter: drop-shadow(2px 4px 6px black) saturate(5) hue-rotate(0deg);
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(2px 4px 6px black);
+  }
+}
+
+
+.drop-shadow-custom {
+ filter: drop-shadow(2px 4px 6px black)
+}

@@ -1,5 +1,3 @@
-import { Observable, BehaviorSubject } from 'rxjs';
-
 export interface IPlayer {
   id: number;
   name: string;
@@ -7,6 +5,10 @@ export interface IPlayer {
   pvMax: number;
   mana: number;
   manaMax: number;
+  image: string;
+  score: number;
+  isDead: boolean;
+  classe: string;
 }
 
 export class Player implements IPlayer {
@@ -16,14 +18,21 @@ export class Player implements IPlayer {
   pvMax: number;
   mana: number;
   manaMax: number;
+  image: string;
+  score: number = 0;
+  isDead: boolean = false;
+  classe: string;
 
-  constructor(id: number, name: string, pv: number, pvMax: number, mana: number, manaMax: number) {
+  constructor(id: number, name: string, pv: number, pvMax: number, mana: number, manaMax: number, image: string, score: number = 0, isDead: boolean = false, classe: string) {
     this.id = id;
     this.name = name;
     this.pv = pv;
     this.pvMax = pvMax;
     this.mana = mana;
     this.manaMax = manaMax;
+    this.image = image;
+    this.score = score;
+    this.isDead = isDead;
+    this.classe = classe;
   }
 }
-

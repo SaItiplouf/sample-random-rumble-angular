@@ -1,42 +1,47 @@
 import { createReducer, on } from '@ngrx/store';
-import { resetGame } from '../actions/game.action';
+import { resetGame, startButtonClick, incrementClickCount } from '../actions/game.action';
 import { IMonster, initialMonster } from './../models/monster.model';
 import { IPlayer } from './../models/player.model';
-import { hitMonster } from './../actions/player.action';
-import { hitPlayer } from "../actions/monster.action";
-import { Observable } from 'rxjs';
-import { GameService } from '../services/game.service';
+import {
+  hitMonster,
+  initPlayers,
+  healPlayer,
+  updatePlayerScore,
+  setPlayerDead,
+  enflammer
+} from './../actions/player.action';
+import {hitPlayer, setMonsterOnDamage, setMonsterOnFire} from "../actions/monster.action";
 
 export interface GameState {
   monster: IMonster;
   players: IPlayer[];
   hitHistory: { playerId: number, damage: number }[];
+  clickCount: number;
+  showButton: boolean;
 }
-
-export const initialPlayers$: Observable<IPlayer[]> = GameService.getPlayers(); // Utilisez la méthode getPlayers du service pour récupérer les joueurs
 
 export const initialState: GameState = {
   monster: initialMonster,
   players: [],
-  hitHistory: []
+  hitHistory: [],
+  clickCount: 0,
+  showButton: false,
 };
-
-let updatedInitialState: GameState = initialState;
-
-initialPlayers$.subscribe(players => {
-  updatedInitialState = {
-    ...updatedInitialState,
-    players: players || []
-  };
-  console.log("REDUCER LOG INSTANT", updatedInitialState.players);
-});
-
-setTimeout(() => {
-  console.log("REDUCER LOG 10 SECONDES", updatedInitialState.players);
-}, 10000);
 
 export const gameReducer = createReducer(
   initialState,
+  on(initPlayers, (state, { players }) => ({
+    ...state,
+    players: players
+  })),
+  on(startButtonClick, (state) => ({
+    ...state,
+    showButton: true
+  })),
+  on(incrementClickCount, (state) => ({
+    ...state,
+    clickCount: state.clickCount + 1
+  })),
   on(hitMonster, (state, { damage, playerId }) => {
     const hit = state.hitHistory.find(h => h.playerId === playerId);
     console.log(`Monster hit by player ${playerId} with damage ${damage}`);
@@ -46,7 +51,9 @@ export const gameReducer = createReducer(
         ...state.monster,
         pv: state.monster.pv - damage
       },
-      hitHistory: [...state.hitHistory, { playerId, damage }]
+      hitHistory: [...state.hitHistory, { playerId, damage }],
+      showButton: false,
+      clickCount: 0
     };
   }),
   on(hitPlayer, (state, { player, damage }) => {
@@ -55,12 +62,61 @@ export const gameReducer = createReducer(
     const updatedPlayers = state.players.map(p =>
       p.id === player.id ? { ...p, pv: p.pv - damage } : p
     );
-    const updatedPlayersFiltered = updatedPlayers.filter(p => p.pv > 0);
     return {
       ...state,
-      players: updatedPlayersFiltered,
+      players: updatedPlayers,
       hitHistory: [...state.hitHistory, { playerId: player.id, damage }]
     };
   }),
-  on(resetGame, () => updatedInitialState)
+  on(healPlayer, (state, { player, heal }) => {
+    const updatedPlayers = state.players.map(p => {
+      if (p.id === player.id) {
+        const newHealth = p.pv + heal;
+        const updatedHealth = newHealth > 100 ? 100 : newHealth;
+        return { ...p, pv: updatedHealth };
+      }
+      return p;
+    });
+
+    return {
+      ...state,
+      players: updatedPlayers
+    };
+  }),
+  on(updatePlayerScore, (state, { playerId, score }) => {
+    const updatedPlayers = state.players.map(player => {
+      if (player.id === playerId) {
+        return { ...player, score: score };
+      }
+      return player;
+    });
+    return { ...state, players: updatedPlayers };
+  }),
+  on(setPlayerDead, (state, { playerId }) => {
+    const updatedPlayers = state.players.map(player => {
+      if (player.id === playerId) {
+        return { ...player, isDead: true };
+      }
+      return player;
+    });
+    return { ...state, players: updatedPlayers };
+  }),
+  on(enflammer, (state, action) => {
+    return {...state}; // retourner le nouvel état
+  }),
+  on(setMonsterOnFire, (state, { isMonsterOnFire }) => ({
+    ...state,
+    monster: {
+      ...state.monster,
+      isMonsterOnFire
+    }
+  })),
+  on(setMonsterOnDamage, (state, { isMonsterOnDamage }) => ({
+    ...state,
+    monster: {
+      ...state.monster,
+      isMonsterOnDamage
+    }
+  })),
+  on(resetGame, () => initialState)
 );
