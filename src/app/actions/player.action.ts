@@ -23,3 +23,12 @@ export const enflammer = createAction(
   '[Player] Enflammer',
   props<{ playerId: number }>()
 );
+export const poison = createAction(
+  '[Player] Poison',
+  props<{ playerId: number }>()
+);
+
+export const isProtected = createAction(
+  '[Player] isProtected',
+  props<{ playerId: number }>()
+);

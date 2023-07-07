@@ -1,0 +1,28 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div *ngFor="let player of deadPlayers" class="p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 flex-grow">
+    <div class="flex items-center justify-center mb-4">
+      <div class="w-40 h-40 bg-gray-200 flex items-center justify-center">
+        <img class="w-32 h-32 object-scale-down" [src]="player.image ? player.image : 'https://lh3.googleusercontent.com/vNuyw5qQk27q8cwyY-VbqV1G-N7tFqESi3KLrdFV8yZXk6s2HY3zTa7FLJkeJ5uRhC1Aujqtm5CsUUc0-19m=s400'" alt="Image du personnage">
+      </div>
+    </div>
+    <div>
+      <div class="text-xl font-medium text-black">{{player.name}}</div>
+      <p class="text-gray-500">PV: {{ player.pv !== 0 ? '-' + player.pv : player.pv }}</p>
+      <p class="text-gray-500" *ngIf="player.classe">Classe: {{player.classe}}</p>
+
+      <p class="text-gray-500">{{ player.createdAt }}</p>
+    </div>
+  </div>
+</div>
+<div class="flex justify-center my-4">
+  <button class="mx-1 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+  <button class="mx-1 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage)" [class.bg-gray-500]="currentPage === currentPage">{{ currentPage }}</button>
+  <button class="mx-1 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage + 1)" [disabled]="!hasNextPage">Suivant</button>
+</div>
+
+<button class="fixed bottom-4 right-4 bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-32" (click)="BackButton()">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M7.707 5.293a1 1 0 010 1.414L4.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+  </svg>
+  Revenir en arrière
+</button>

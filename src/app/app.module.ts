@@ -18,6 +18,7 @@ import { ButtonCapacityComponent } from './components/button-capacity/button-cap
 import { WinpageComponent } from './components/winpage/winpage.component';
 import {GameComponent} from "./components/game/game.component";
 import {HttpClientModule} from "@angular/common/http";
+import { CimetiereComponent} from "./components/cimetiere/cimetiere.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {HttpClientModule} from "@angular/common/http";
     ButtonCapacityComponent,
     WinpageComponent,
     GameComponent,
+    CimetiereComponent,
   ],
   imports: [
     BrowserModule,

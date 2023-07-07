@@ -10,6 +10,10 @@ export const setMonsterOnFire = createAction(
   '[Monster] Set On Fire',
   props<{ isMonsterOnFire: boolean }>()
 );
+export const setMonsterOnPoison = createAction(
+  '[Monster] Set On Poison',
+  props<{ isMonsterOnPoison: boolean }>()
+);
 export const setMonsterOnDamage = createAction(
   '[Monster] Set On Damage',
   props<{ isMonsterOnDamage: boolean }>()

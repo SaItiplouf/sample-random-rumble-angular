@@ -2,15 +2,17 @@ import { createReducer, on } from '@ngrx/store';
 import { resetGame, startButtonClick, incrementClickCount } from '../actions/game.action';
 import { IMonster, initialMonster } from './../models/monster.model';
 import { IPlayer } from './../models/player.model';
+import { setGameState } from '../actions/game.action';
+
 import {
   hitMonster,
   initPlayers,
   healPlayer,
   updatePlayerScore,
   setPlayerDead,
-  enflammer
+  enflammer, isProtected
 } from './../actions/player.action';
-import {hitPlayer, setMonsterOnDamage, setMonsterOnFire} from "../actions/monster.action";
+import {hitPlayer, setMonsterOnDamage, setMonsterOnFire, setMonsterOnPoison} from "../actions/monster.action";
 
 export interface GameState {
   monster: IMonster;
@@ -18,6 +20,7 @@ export interface GameState {
   hitHistory: { playerId: number, damage: number }[];
   clickCount: number;
   showButton: boolean;
+  gameState: 'running' | 'win' | 'lose';
 }
 
 export const initialState: GameState = {
@@ -26,6 +29,7 @@ export const initialState: GameState = {
   hitHistory: [],
   clickCount: 0,
   showButton: false,
+  gameState: 'running',
 };
 
 export const gameReducer = createReducer(
@@ -104,6 +108,33 @@ export const gameReducer = createReducer(
   on(enflammer, (state, action) => {
     return {...state}; // retourner le nouvel état
   }),
+  on(isProtected, (state, { playerId }) => {
+    const updatedPlayers = state.players.map(player => {
+      if (player.id === playerId) {
+        return {
+          ...player,
+          isProtected: !player.isProtected
+        };
+      }
+      return player;
+    });
+
+    return {
+      ...state,
+      players: updatedPlayers
+    };
+  }),
+  on(setGameState, (state, { gameState }) => ({
+    ...state,
+    gameState
+  })),
+  on(setMonsterOnDamage, (state, { isMonsterOnDamage }) => ({
+    ...state,
+    monster: {
+      ...state.monster,
+      isMonsterOnDamage
+    }
+  })),
   on(setMonsterOnFire, (state, { isMonsterOnFire }) => ({
     ...state,
     monster: {
@@ -111,11 +142,11 @@ export const gameReducer = createReducer(
       isMonsterOnFire
     }
   })),
-  on(setMonsterOnDamage, (state, { isMonsterOnDamage }) => ({
+  on(setMonsterOnPoison, (state, { isMonsterOnPoison }) => ({
     ...state,
     monster: {
       ...state.monster,
-      isMonsterOnDamage
+      isMonsterOnPoison
     }
   })),
   on(resetGame, () => initialState)

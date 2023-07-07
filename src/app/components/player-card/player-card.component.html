@@ -4,7 +4,19 @@
       <h5 class="text-2xl text-white">{{ player.name }}</h5>
       <div class="flex space-x-4">
         <div *ngIf="player.classe === 'Magicien'">
-          <i class="fas fa-hat-wizard text-yellow-500 text-1xl"></i> <!-- Icône de magicien avec couleur jaune et taille 2xl -->
+          <i class="fas fa-hat-wizard text-yellow-500 text-1xl"></i>
+        </div>
+          <div *ngIf="player.classe === 'Medecin'">
+            <i class="fas fa-stethoscope text-green-500 text-1xl"></i>
+          </div>
+        <div *ngIf="player.classe === 'Chimiste'">
+          <i class="fas fa-skull-crossbones text-blue-500 text-1xl"></i>
+        </div>
+        <div *ngIf="player.classe === 'Tank'">
+          <i class="fas fa-shield text-white-500 text-1xl"></i>
+        </div>
+        <div *ngIf="player.classe === 'Spawner'">
+          <i class="fas fa-book-bible text-red-500 text-1xl"></i>
         </div>
       </div>
     </div>
@@ -15,7 +27,7 @@
         <img class="w-32 h-32 object-scale-down" *ngIf="!player.isDead" [src]="player.image ? player.image : 'https://lh3.googleusercontent.com/vNuyw5qQk27q8cwyY-VbqV1G-N7tFqESi3KLrdFV8yZXk6s2HY3zTa7FLJkeJ5uRhC1Aujqtm5CsUUc0-19m=s400'" alt="Image du personnage">
         <img class="w-32 h-32 object-scale-down" *ngIf="player.isDead" src="https://www.pngplay.com/wp-content/uploads/1/RIP-Gravestone-Transparent-Free-PNG.png" alt="Image du personnage">
       </div>
-
+      <i class="fas fa-shield text-green-500 pb-4 text-1xl" *ngIf="player.isProtected"></i>
 
       <div class="mb-4">
         <div class="text-gray-300">Vie: {{ player.pv }}</div>
@@ -37,18 +49,22 @@
                              [ngClass]="{'bg-red-600': (player.pv !== undefined && player.pv !== null && player.pv > 0), 'bg-gray-500': (player.pv !== undefined && player.pv !== null && player.pv <= 0)}"
                              class="hover:bg-red-500"></app-button-capacity>
 
-        <app-button-capacity [player]="player" actionType="heal"
-                             [ngClass]="{'bg-green-500': (player.score !== undefined && player.score !== null && player.score !== 0), 'bg-gray-500': (player.score === 0 || player.score === null || player.score === undefined)}"
-                             class="hover:bg-green-600"></app-button-capacity>
+        <app-button-capacity [player]="player" actionType="heal" [disabled]="player.isDead"
+                             [ngClass]="(player.score !== undefined && player.score !== null && player.score > 1 && !player.isDead) ? 'bg-green-500' : 'bg-gray-500'"
+                             class="hover:bg-green-600">
+        </app-button-capacity>
       </div>
+
+
 
       <div class="flex justify-center mt-4">
         <button [disabled]="isClicking"
                 *ngIf="showNewButton"
-                [ngClass]="{'bg-gray-300': isClicking, 'bg-amber-400 hover:bg-amber-500': !isClicking}"
-                class="text-white font-bold py-4 px-8 rounded-full text-xl"
-                (click)="onButtonClick()">FRACASSE LE
+                [ngClass]="{'bg-gray-300': isClicking, 'bg-purple-400 hover:bg-purple-500': !isClicking}"
+                class="text-white font-bold py-10 px-10 mt-4 mb-4 block w-full h-auto text-center rounded-none text-xl"
+                (click)="onButtonClick()">DAMAGE
         </button>
+
 
       </div>
 
@@ -57,8 +73,18 @@
       <button *ngIf="player?.classe === 'Magicien' && player.score >= 3"
               class="w-full bg-amber-500 hover:bg-yellow-500 text-white font-bold py-2 px-4"
               (click)="onClickEnflammer()">Enflammer le boss</button>
-
-
+      <button *ngIf="player?.classe === 'Chimiste' && player.score >= 3"
+              class="w-full bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4"
+              (click)="onClickPoison()">Poison</button>
+      <button *ngIf="player?.classe === 'Medecin' && player.score >= 3"
+              class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4"
+              (click)="onClickHealEveryone()">Soigner tout le monde</button>
+      <button *ngIf="player?.classe === 'Tank' && player.score >= 3"
+              class="w-full bg-black hover:bg-black text-white font-bold py-2 px-4"
+              (click)="onClickProtected()">Protéger le joueur</button>
+      <button *ngIf="player?.classe === 'Spawner' && player.score >= 3"
+              class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4"
+              (click)="addPlayerToStore()">Appeler du renfort</button>
 
 
       <audio id="fireSound" src="../../../assets/fire.mp3"></audio>

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {WinpageComponent} from "./components/winpage/winpage.component";
-import {AppComponent} from "./app.component";
+import { CimetiereComponent} from "./components/cimetiere/cimetiere.component";
 import {GameComponent} from "./components/game/game.component";
 
 const routes: Routes = [
-  { path: '', component: GameComponent, title: 'index', pathMatch: 'full'},
-  { path: 'win-page', component: WinpageComponent, title: 'winpage'}
+  { path: 'game', component: GameComponent, title: 'Game', pathMatch: 'full'},
+  { path: '', component: WinpageComponent, title: 'Menu'},
+  { path: 'cimetiere', component: CimetiereComponent, title: 'Cimetière'}
 ];
 
 @NgModule({

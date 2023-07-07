@@ -9,8 +9,9 @@ export interface IPlayer {
   score: number;
   isDead: boolean;
   classe: string;
+  createdAt: string;
+  isProtected: boolean; 
 }
-
 export class Player implements IPlayer {
   id: number;
   name: string;
@@ -22,8 +23,10 @@ export class Player implements IPlayer {
   score: number = 0;
   isDead: boolean = false;
   classe: string;
+  createdAt: string;
+  isProtected: boolean = false;
 
-  constructor(id: number, name: string, pv: number, pvMax: number, mana: number, manaMax: number, image: string, score: number = 0, isDead: boolean = false, classe: string) {
+  constructor(id: number, name: string, pv: number, pvMax: number, mana: number, manaMax: number, image: string, score: number = 0, isDead: boolean = false, classe: string, createdAt: string, isProtected: boolean = false) {
     this.id = id;
     this.name = name;
     this.pv = pv;
@@ -34,5 +37,8 @@ export class Player implements IPlayer {
     this.score = score;
     this.isDead = isDead;
     this.classe = classe;
+    this.createdAt = createdAt;
+    this.isProtected = isProtected;
   }
 }
+

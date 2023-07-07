@@ -17,7 +17,7 @@ export class ButtonCapacityComponent {
   @Output() showNewButtonEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() player?: any;
   @Input() actionType?: string;
-
+  @Input() disabled: boolean = false;
 
 
 
@@ -32,7 +32,7 @@ export class ButtonCapacityComponent {
 
       setTimeout(() => {
         this.showNewButtonEvent.emit(false);
-      }, 10000);
+      }, 5000);
     }
   }
 
@@ -47,4 +47,7 @@ export class ButtonCapacityComponent {
       this.store.dispatch(updatePlayerScore({ playerId: this.player.id, score: updatedScore }));
     }
   }
+
+
+
 }
