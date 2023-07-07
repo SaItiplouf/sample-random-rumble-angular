@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center min-h-screen bg-gradient-to-bl from-blue-900 to-blue-950">
+<div class="flex flex-col min-h-screen bg-gradient-to-bl from-blue-900 to-blue-950">
   <div class="flex flex-col w-full h-screen items-center justify-center bg-gray-200">
     <div class="w-full max-w-md p-6 bg-white rounded-xl space-y-8">
       <h1 class="text-4xl md:text-6xl text-center font-bold text-black">PoloRumble</h1>
@@ -7,7 +7,7 @@
       </div>
 
       <div *ngIf="(gameState$ | async) === 'lose'">
-        <h1 class="text-3xl font-bold text-red-500">Tout vos soldats sont morts !</h1>
+        <h1 class="text-3xl font-bold text-red-500">Tous vos soldats sont morts !</h1>
       </div>
 
       <div *ngIf="(gameState$ | async) !== 'win' && (gameState$ | async) !== 'lose'" class="flex justify-center items-center">
@@ -21,38 +21,39 @@
     </div>
   </div>
   <div class="w-full max-w-3xl mt-8 md:mx-4">
-
-    <div class="flex flex-col justify-end mt-8 md:mt-0 md:pl-8">
-      <table class="table-auto bg-gray-200 rounded-lg shadow-md">
-        <thead>
-        <tr>
-          <th class="text-left bg-blue-600 text-white py-2 px-4">Derniers joueurs morts</th>
-          <th class="text-right bg-blue-600 text-white py-2 px-4"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let recentDeadPlayer of deadPlayers">
-          <td class="py-2 px-4">{{ recentDeadPlayer.name }}</td>
-          <td class="text-right py-2 px-4">{{ recentDeadPlayer.createdAt }}</td>
-        </tr>
-        </tbody>
-      </table>
-
-      <table class="table-auto bg-gray-200 rounded-lg shadow-md mt-4">
-        <thead>
-        <tr class="text-left bg-blue-600 text-white ">
-          <th class="py-2 px-4">Joueurs</th>
-          <th class="py-2 px-4"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let player of players">
-          <td class="py-2 px-4">{{ player.name }}</td>
-          <td class="text-right py-2 px-4">{{ player.pv }} HP</td>
-        </tr>
-        </tbody>
-      </table>
-
+    <div class="flex flex-col md:flex-row">
+      <div class="w-full md:w-1/2">
+        <table class="table-auto bg-gray-200 rounded-lg shadow-md">
+          <thead>
+          <tr>
+            <th class="text-left bg-blue-600 text-white py-2 px-4">Derniers joueurs morts</th>
+            <th class="text-right bg-blue-600 text-white py-2 px-4"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let recentDeadPlayer of deadPlayers">
+            <td class="py-2 px-4">{{ recentDeadPlayer.name }}</td>
+            <td class="text-right py-2 px-4">{{ recentDeadPlayer.createdAt }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="w-full md:w-1/2">
+        <table class="table-auto bg-gray-200 rounded-lg shadow-md mt-4">
+          <thead>
+          <tr class="text-left bg-blue-600 text-white">
+            <th class="py-2 px-4">Joueurs</th>
+            <th class="py-2 px-4"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let player of players">
+            <td class="py-2 px-4">{{ player.name }}</td>
+            <td class="text-right py-2 px-4">{{ player.pv }} HP</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

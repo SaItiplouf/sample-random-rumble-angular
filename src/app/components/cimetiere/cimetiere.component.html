@@ -14,15 +14,19 @@
     </div>
   </div>
 </div>
-<div class="flex justify-center my-4">
-  <button class="mx-1 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
-  <button class="mx-1 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage)" [class.bg-gray-500]="currentPage === currentPage">{{ currentPage }}</button>
-  <button class="mx-1 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage + 1)" [disabled]="!hasNextPage">Suivant</button>
+<div class="fixed bottom-0 left-0 right-0 bg-blue-500 text-white md:relative">
+  <div class="flex flex-col md:flex-row justify-between items-center py-2 px-4 md:py-0 md:px-8">
+    <div class="flex flex-wrap justify-center md:justify-start mb-4 md:mb-0 p-2">
+      <button class="mx-1 my-1 md:my-0 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+      <button class="mx-1 my-1 md:my-0 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage)" [class.bg-gray-500]="currentPage === currentPage">{{ currentPage }}</button>
+      <button class="mx-1 my-1 md:my-0 px-4 py-2 bg-blue-500 text-white rounded" (click)="navigateToPage(currentPage + 1)" [disabled]="!hasNextPage">Suivant</button>
+    </div>
+    <button class="bottom-4 right-4 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-32" (click)="BackButton()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M7.707 5.293a1 1 0 010 1.414L4.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+      </svg>
+      Revenir
+    </button>
+  </div>
 </div>
 
-<button class="fixed bottom-4 right-4 bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-32" (click)="BackButton()">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
-    <path fill-rule="evenodd" d="M7.707 5.293a1 1 0 010 1.414L4.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-  </svg>
-  Revenir en arrière
-</button>
