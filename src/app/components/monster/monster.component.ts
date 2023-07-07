@@ -32,7 +32,7 @@ export class MonsterComponent implements OnInit, OnDestroy {
           }
           this.ngUnsubscribe.next();
           this.store.dispatch(setGameState({ gameState: 'win' }));
-          this.router.navigate(['/', '']);
+          this.router.navigate(['']);
         }
 
         // if(game.gameState === 'win') {

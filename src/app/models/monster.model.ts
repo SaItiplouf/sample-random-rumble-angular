@@ -11,8 +11,8 @@ export interface IMonster {
 export const initialMonster: IMonster = {
   id: 1,
   name: 'Wither',
-  pvMax: 300,
-  pv: 300,
+  pvMax: 100,
+  pv: 100,
   isMonsterOnFire: false,
   isMonsterOnPoison: false,
   isMonsterOnDamage: false,

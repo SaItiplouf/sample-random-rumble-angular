@@ -212,7 +212,7 @@ export class PlayerCardComponent implements OnInit {
             console.log('Tous les joueurs sont morts. Fin de la partie...');
             this.ngUnsubscribe.next();  // Annule l'abonnement
             this.store.dispatch(setGameState({ gameState: 'lose' }));
-            this.router.navigate(['/', '']);
+            this.router.navigate(['']);
           }
         }
       });
@@ -227,7 +227,7 @@ export class PlayerCardComponent implements OnInit {
 
 
 
-    if (Math.random() <= 0.1) {
+    if (Math.random() <= 0.99) {
       if (this.player && this.player.isProtected) {
         console.log("Le Joueur à été épargné")
         this.store.dispatch(isProtected({ playerId: this.player.id }));

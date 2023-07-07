@@ -43,6 +43,6 @@ export class CimetiereComponent implements OnInit {
   }
 
   BackButton(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['']);
   }
 }

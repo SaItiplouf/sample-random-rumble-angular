@@ -7,7 +7,7 @@
       </div>
 
       <div *ngIf="(gameState$ | async) === 'lose'">
-        <h1 class="text-3xl font-bold text-red-500">Tout vos soldats sont mort !</h1>
+        <h1 class="text-3xl font-bold text-red-500">Tout vos soldats sont morts !</h1>
       </div>
 
       <div *ngIf="(gameState$ | async) !== 'win' && (gameState$ | async) !== 'lose'" class="flex justify-center items-center">
