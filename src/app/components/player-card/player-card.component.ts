@@ -227,7 +227,7 @@ export class PlayerCardComponent implements OnInit {
 
 
 
-    if (Math.random() <= 0.99) {
+    if (Math.random() <= 0.1) {
       if (this.player && this.player.isProtected) {
         console.log("Le Joueur à été épargné")
         this.store.dispatch(isProtected({ playerId: this.player.id }));
